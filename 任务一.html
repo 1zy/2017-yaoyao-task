@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+   *{
+	   margin:0;
+	   padding:0;
+   }
+   form{
+	   font-family:"微软雅黑";
+	   font-size:24px;
+	   color:#000;
+	   }
+   label{
+	   margin-top:20px;
+	   display:inline-block;
+   }
+   input[type="text"]{
+		width:300px;
+		height:20px;
+		padding:5px;
+		margin:0 60px;
+		border:1px solid #999;
+		border-radius:5px
+	}
+   input[type="button"]{
+	   color:#fff;
+	   font-weight:bold;
+	   background:#03C;
+	   padding:10px 20px;
+	   border:none;
+	   border-radius:10px;
+   }
+   input[type="button"]:hover{
+	   background:#F00;
+   }
+   p{
+	   color:#999;
+	   font-size:12px;
+	   margin-left:115px;
+   }
+</style>
+</head>
+
+<body>
+   <form>
+      <label>
+         名称
+         <input type="text" id="name_1" />
+         <input type="button" id="test_1" value="验证" />
+         <p id="mes_1">必填，长度为4-6个字符</p>
+      </label><br />
+   </form>
+     
+   <script type="text/javascript">
+        window.onload=function(){
+			var name_1=document.getElementById("name_1");
+			var test_1=document.getElementById("test_1");
+			var mes_1=document.getElementById("mes_1");
+			function strLength(str){
+				return str.replace(/[^\x00-xff]/g,"xx")//非单字符的用XX替换
+				}
+				
+			var re=/[^\w\u4e00-\u9fa5]/g;;//非法字符
+		    if(name_1.value!=" "){
+				  test_1.onclick=function(){//验证点击事件
+				      // alert(strLength(name_1.value).length)
+					   if(strLength(name_1.value).length<4){  //长度小于4
+							  mes_1.innerHTML="输入的字符长度小于4" //p中内容相应变化
+							  name_1.style.border="1px solid #999";
+							  mes_1.style.color="#999"
+							  }
+							  
+						  if(strLength(name_1.value).length>16){
+							  mes_1.innerHTML="输入的字符长度大于16"
+							  name_1.style.border="1px solid #999";
+							  mes_1.style.color="#999"
+							  }
+							  
+						  if(strLength(name_1.value).length>4&&strLength(name_1.value).length<16){//符合要求4-16
+							  mes_1.style.color="green"
+							  name_1.style.border="1px solid green";
+							  mes_1.innerHTML="名称格式正确"
+							  }
+							  
+						  if(re.test(name_1.value)){//含有非法字符
+							  mes_1.innerHTML="含有非法字符"
+							  name_1.style.border="1px solid red";
+							  mes_1.style.color="red"
+							  }
+			}
+			
+		}
+			name_1.onblur=function(){//失去焦点
+					  if(name_1.value.length==0){//判断输入框中的文本长度
+						   mes_1.innerHTML="请点击验证"
+						  }
+				}
+		}
+   </script>  
+</body>
+</html>
