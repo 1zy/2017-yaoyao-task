@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+#check_1,#check_2{
+	 font-size:24px;
+	 font-family:"微软雅黑";
+	 margin:50px ;
+	 width:20px;
+	 height:20px;
+ }
+ #school_box{
+	 margin-left:50px;
+	 display:none;
+	 }
+ select{
+	 padding:5px;
+ }
+ select:first-child{
+	 width:120px;
+ }
+ select:last-child{
+	 width:200px;
+	 margin-left:20px;
+	 }
+ #occupation{
+	 margin-left:50px;
+	 display:none;
+ }
+ #input_box{
+	 width:200px;
+	 height:20px;
+	 padding:5px;
+	 margin-left:30px;
+ }
+</style>
+</head>
+
+<body>
+<form>
+   <input type="radio" name="pro" id="check_1">在校生
+   <input type="radio" name="pro" id="check_2">非在校生
+   <div id="school_box">
+         <select id="school" >
+            <option>请选择省市</option>
+            <option value="1">北京</option>
+            <option value="2">上海</option>
+            <option value="3">广州</option>
+         </select>
+         <select id="school_name">
+            <option>请选择学校</option>
+         </select>
+  </div> 
+   <div id="occupation">
+       <label>
+           就业单位
+           <input type="text" id="input_box">
+       </label>
+   </div>
+</form>
+  <script>
+      var check_1=document.getElementById("check_1");
+	  var check_2=document.getElementById("check_2");
+	  var school_box=document.getElementById("school_box");
+	  var occupation=document.getElementById("occupation");
+	  var school=document.getElementById("school");
+	  var school_name=document.getElementById("school_name");
+
+		  check_1.onclick=function(){
+			  if(check_1.checked="checked"){
+				  school_box.style.display="block";
+				  occupation.style.display="none";
+				  }
+			  }
+		   check_2.onclick=function(){
+			  if(check_2.checked="checked"){
+				  school_box.style.display="none";
+				  occupation.style.display="block";
+				  }
+			  }
+		
+		
+		//城市变化，学校变化
+		
+function changeCity(s){
+   switch (s){//传入一个人数如果与其中case匹配那么执行case下的语句
+     case "1" :
+        document.getElementById("school_name").options.length=0;
+        var BeiJin_value=[0,1,2,3,4,5];
+        var BeiJin_text=["北京大学","清华大学","中国人民大学","北京航空航天大学","北京科技大学","北京化工大学"];
+        for ( var i=0;i<BeiJin_value.length;i++){
+			 var opt =document.createElement("OPTION");  //创建标签
+			 opt.value=BeiJin_value[i];  
+			 opt.text=BeiJin_text[i];//text 属性可设置或返回选项的文本值。
+		     school_name.options.add(opt);//将opt添加到school_name.options中
+     }
+     break;
+	 
+	 case "2" :
+         document.getElementById("school_name").options.length=0;
+         var ShangHai_value=[0,1,2,3,4,5];
+         var ShangHai_text=["复旦大学","上海交通大学","同济大学","上海财经大学","华东师范大学","上海大学"];
+         for ( var i=0;i<ShangHai_value.length;i++){
+			 var opt =   document.createElement("OPTION");  //创建标签
+			 opt.value=ShangHai_value[i];  
+			 opt.text=ShangHai_text[i];  
+		     school_name.options.add(opt);
+     }
+      break;
+	  
+	  case "3" :
+         document.getElementById("school_name").options.length=0;
+         var GuangZhou_value=[0,1,2,3,4,5];
+         var GuangZhou_text=["中山大学","广州大学","华南理工大学","广东财经大学","广州医科大学","广东药学院"];
+         for ( var i=0;i<GuangZhou_value.length;i++){
+			  var opt =document.createElement("OPTION");  //创建标签
+			  opt.value=GuangZhou_value[i];  
+			  opt.text=GuangZhou_text[i];  
+		      school_name.options.add(opt);
+     }
+     break;
+	 
+    default :
+        document.getElementById("school_name").options.length=0;
+        var opt =document.createElement("OPTION");
+        opt.value=0;  
+        opt.text="请选择省市";
+        school_name.options.add(opt);
+      }
+
+   }
+	school.onchange=function(){//改变城市时触发changeCity（）；
+			changeCity(this.value);
+			}
+
+		
+		
+  </script>
+</body>
+</html>
