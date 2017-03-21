@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{
+	margin:0;
+	padding:0;
+	font-family:"微软雅黑";
+}
+label{
+	display:block;
+	width:800px;
+	margin-top:30px;
+	}
+input{
+	width:500px;
+	height:30px;
+	padding:5px;
+	border:2px solid #CCC;
+	border-radius:5px;
+}
+p{
+	margin-top:5px;
+	font-size:14px;
+	color:#999;
+	margin-left:230px;
+	display:none;
+}
+span{
+	width:200px;
+	text-align:right;
+	display:inline-block;
+	margin-right:20px;
+}
+#sub{
+	display:block;
+	width:100px;
+	height:40px;
+	background:#039;
+	color:#fff;
+	margin-left:680px;
+	margin-top:30px;
+}
+</style>
+
+</head>
+
+<body>
+<form>
+    <label>
+      <span> 用户名</span>
+       <input type="text" id="name">
+       <p id="mes_1"></p>
+    </label>
+    <label>
+      <span> 密码</span>
+       <input type="passWord" id="pwd_1">
+       <p id="mes_2"></p>
+    </label>
+    <label>
+      <span> 密码确认</span>
+       <input type="passWord" id="pwd_2" >
+       <p id="mes_3"></p>
+    </label>
+    <label>
+      <span>邮箱</span>
+       <input type="email" id="em">
+       <p id="mes_4"></p>
+    </label>
+    <label>
+      <span>手机</span>
+       <input type="tel" id="tel">
+       <p id="mes_5"></p>
+    </label>
+    <button type="submit" id="sub">提交</button>
+</form>
+<script>
+     window.onload=function(){
+		 //获取需要的元素
+		 var name=document.getElementById("name");
+		 var mes_1=document.getElementById("mes_1");
+		 var pwd_1=document.getElementById("pwd_1");
+		 var mes_2=document.getElementById("mes_2");
+		 var pwd_2=document.getElementById("pwd_2");
+		 var mes_3=document.getElementById("mes_3");
+		 var em=document.getElementById("em");
+		 var mes_4=document.getElementById("mes_4");
+		 var tel=document.getElementById("tel");
+		 var mes_5=document.getElementById("mes_5");
+		 var subs=document.getElementById("sub");
+		 var p=document.getElementsByTagName("p");
+		 var span=document.getElementsByTagName("span");
+		 
+		 function strLength(str){
+			 return  str.replace(/[^\x00-xff]/g,"xx")//非单字符的用XX替换
+			 }
+	    
+		 //用户名 获取焦点
+		 name.onfocus=function(){
+			 mes_1.style.display="block";
+			 mes_1.style.color="#999";
+			 name.style.border="2px solid #ccc";
+			 mes_1.innerHTML="必填，长度为4-16个字符";
+			 }
+		 
+		 //失去焦点
+	 name.onblur=function(){
+		var re=/[^\w\u4e00-\u9fa5]/g;
+		var  strt=strLength(name.value).length;
+			if(re.test(name.value)){
+				 mes_1.innerHTML="含有非法字符";
+				 mes_1.style.color="red";
+				 name.style.border="2px solid red";
+				 }
+			else if(this.value.length==0){
+				mes_1.innerHTML="请输入用户名";
+				mes_1.style.color="red";
+				name.style.border="2px solid red";
+				}
+			else  if(strt<4){
+				 mes_1.innerHTML="输入的字长度符不能小于4"
+			 }
+			else if(strt>16){
+				mes_1.innerHTML="输入的字长度符不能大于16"
+				}
+			else if(strt>4&&strt<16){
+				mes_1.innerHTML="用户名正确"
+				mes_1.style.color="green";
+				name.style.border="2px solid green";
+				}
+				
+	  }//用户名失去焦点结束
+	  
+	 
+	  //密码验证获取焦点
+	   pwd_1.onfocus=function(){
+		   mes_2.style.display="block";
+		   mes_2.innerHTML="密码的长度不少于6位"
+		   mes_2.style.color="#999";
+		   pwd_1.style.border="2px solid #999"
+		   }
+	//密码验证失去焦点
+	   var w=/[^a-zA-Z]/g;
+	   var d=/[^\d]/g 
+	   pwd_1.onblur=function(){
+			  if(pwd_1.value.length==0){
+					   mes_2.innerHTML="请输入密码"
+					   mes_2.style.color="red";
+					   pwd_1.style.border="2px solid red"
+				     }
+			   else if(pwd_1.value.length<6){
+					    mes_2.innerHTML="密码长度为至少为6" 
+				      }
+			   else if(!w.test(pwd_1.value)){
+				        mes_2.innerHTML="不能全为字母" 
+				      }
+			   else if(!d.test(pwd_1.value)){
+				       mes_2.innerHTML="不能全为数字" 
+				      }
+			   else{
+				      mes_2.innerHTML="密码可用";
+				      mes_2.style.color="green";
+				    pwd_1.style.border="2px solid green"  
+			    }
+		  }//密码验证失去焦结束点
+		
+		 //验证密码，获取焦点 
+		pwd_2.onfocus=function(){
+				 mes_3.style.display="block";
+				 mes_3.innerHTML="确认密码"
+				}
+		pwd_2.onblur=function(){
+				if(pwd_1.value.length==0){
+					   mes_3.innerHTML="请再次输入密码"
+					   mes_3.style.color="red";
+					   pwd_2.style.border="2px solid red";
+					}
+			else if(pwd_2.value!=pwd_1.value){
+					   mes_3.innerHTML="两次输入密码不一致，请重新输入密码"
+					   mes_3.style.color="red";
+					   pwd_2.style.border="2px solid red";
+				}else{
+					   mes_3.innerHTML="密码输入一致"
+					   mes_3.style.color="green";
+					   pwd_2.style.border="2px solid green";
+				}
+			}
+			
+	  //邮箱验证
+	  em.onfocus=function(){
+		  mes_4.style.display="block";
+		  mes_4.innerHTML="请输入邮箱";
+		  }
+	   em.onblur=function(){
+		  var fs=em.value.indexOf("@");//获取到@第一次出现的位置
+		  var sc=em.value.indexOf(".");//获取到.第一次出现的位置
+			   if(sc-fs<5&&sc-fs>2&&fs>1){//判断.与@之间相差的长度 
+					mes_4.innerHTML="邮箱格式正确";
+					mes_4.style.color="green";
+					em.style.border="2px solid green";
+				   }else{
+					mes_4.innerHTML="邮箱格式错误";
+					mes_4.style.color="red";
+					em.style.border="2px solid red";
+				   }
+		  }  
+	 
+	  //手机验证
+	  tel.onfocus=function(){
+		  mes_5.style.display="block";
+		  mes_5.innerHTML="请输入手机号"
+		  }
+	  
+	  tel.onblur=function(){
+		   if(this.value.length==0){
+			   mes_5.innerHTML="请输入手机号"
+			   mes_5.style.color="red";
+			   tel.style.border="2px solid red"; 
+			 }
+		   else if(tel.value.length<11||tel.value.length>11){
+		       mes_5.innerHTML="请输入正确手机号"
+			   mes_5.style.color="red";
+			   tel.style.border="2px solid red";
+			   }
+			 
+			 else if(d.test(this.value)){
+			   mes_5.innerHTML="手机格式不正确"
+			   mes_5.style.color="red";
+			   tel.style.border="2px solid red";
+			 }
+			 else{     //手机的长度为11位
+			 mes_5.innerHTML="手机格式正确" 
+			 mes_5.style.color="green";
+			 tel.style.border="2px solid green";
+		  }
+	  }
+	  var data=[];
+	  subs.onclick=function(){
+		 for(var i=0;i<p.length;i++){
+		   if(p[i].style.color=="red"){
+			   data.push(span[i].innerHTML+"输入错误");
+			   }
+		 }
+		   alert(data)
+		  }
+		
+	 }//window.onload结束
+</script>
+</body>
+</html>
