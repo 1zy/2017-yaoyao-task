@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+  *{
+	  margin:0;
+	  padding:0;
+  }
+  #canvas{
+	  width:890px;
+	  height:890px;
+  }
+  #moves{
+	  position:absolute;
+	  width:70px;
+	  height:80px;
+	  background:red;
+	  top:80px;
+	  left:80px;
+	  border-right:10px solid blue;
+  }
+  #imports{
+	  margin-top:30px;
+	  margin-left:80px;
+	  width:350px;
+  }
+  #star{
+	  margin-left:10px;
+	  padding:5px 20px;
+  }
+  #star:hover{
+	  background:#F00;
+  }
+  p{
+	  margin-left:80px;
+	  margin-top:10px;
+  }
+</style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas><br>
+ 
+  <input type="text" id="imports" name="imports">
+  <button id="star"> 执行</button>
+  <div id="moves" class="moves"></div>
+  <p>go:向前移动&nbsp;&nbsp;turn left:向左转&nbsp;&nbsp; turn right:向右转</p>
+ 
+</body>
+<script>
+ var can=document.getElementById("canvas");//获取第一个canvas
+ var ctx=can.getContext("2d");
+  
+ var imports=document.getElementsByName("imports")[0];
+ var star=document.getElementById("star");
+ var moves=document.getElementById("moves");
+ 
+ //canvas和canvas_s宽高
+ can.width=890;
+ can.height=890;
+ 
+ var x=80;
+ var y=80;
+ var hx=40;
+ var vy=40;
+ var hnum=0;
+ var vnum=0;
+ var mx=0;
+ var my=0;
+ var rot=0,rots=0;
+window.onload=function(){
+  init();
+}
+//第一个canvas所有的函数调用
+function init(){
+	ctx.lineWidth=1;
+	ctx.strokeStyle="#000";
+	ctx.strokeRect(80,80,800,800);
+	hozLine();
+	verLine();
+	hozText();
+	verText();
+	 move();
+	}
+//x轴变化，y轴不变绘制横线
+function hozLine(){
+	   for(var i=0;i<9;i++){
+		   x+=80;
+		   ctx.lineWidth=1;
+	       ctx.strokeStyle="#000";
+		   ctx.moveTo(x,80);
+		   ctx.lineTo(x,880);
+	   }
+	    ctx.stroke();
+	}
+//y轴变化，x轴不变绘制横线
+function verLine(){
+	for(var i=0;i<9;i++){
+		   y+=80;
+		   ctx.lineWidth=1;
+	       ctx.strokeStyle="#000";
+		   ctx.moveTo(80,y);
+		   ctx.lineTo(880,y);
+	   }
+	  ctx.stroke();  
+	}
+//x轴变，y轴不变写入横线方向的数字
+function hozText(){
+	ctx.font="32px 微软雅黑"
+	for(var i=0;i<10;i++){
+		  hnum+=1;
+		  hx+=80;
+		  ctx.textAlign="center";
+		  ctx.fillText(hnum,hx,65);
+		}
+	}
+//x轴不变，y轴变写入竖线方向的数字
+function verText(){
+	ctx.font="32px 微软雅黑"
+	for(var i=0;i<10;i++){
+		  vnum+=1;
+		  vy+=80;
+		  ctx.textBaseline="middle";
+		  ctx.fillText(vnum,40,vy);
+		}
+	}
+function move(){
+    star.onclick=function(){
+	  if(imports.value=="turn left"){//向右
+			 rot-=90;
+			 moves.style.transform="rotate("+rot+"deg)"
+			 if(rot<-270){
+				 rot=0;
+				 }
+			 }
+		
+		else if(imports.value=="turn right"){//向右
+			 rot+=90;
+			 moves.style.transform="rotate("+rot+"deg)"
+			  if(rot>270){
+				 rot=0;
+				 }
+			 }//判断是否超出范围；
+		 
+		//通过旋转的度数确定旋转的方向
+	  if(imports.value=="go"){
+			    //右方向
+		    if(rot/90==0){
+			   if(mx>=0&&mx<720){
+					mx+=80;
+					moves.style.marginLeft=mx+"px"
+					}else{
+						alert(1)
+					}
+				}
+				//左方向
+			if(rot/90==2||rot/90==-2){
+			   if(mx>0&&mx<=720){
+					mx-=80;
+					moves.style.marginLeft=mx+"px"
+					}else{
+						alert(mx)
+					}
+			    }
+			   //上方向
+		                 //判断小方块竖向的位置是后在网格中
+			if(rot/90==-1||rot/90==3){
+			    if(my>0&&my<=720){
+					 my-=80;
+					 moves.style.marginTop=my+"px"
+					 }else{
+					 alert(my)
+					 }
+					 }
+				//下方向
+		     if(rot/90==1||rot/90==-3){
+				 if(my>=0&&my<720){
+					 my+=80;
+					 moves.style.marginTop=my+"px"
+					 }else{
+					 alert(my)
+					 }
+				 }
+		  
+			}//方向控制结束
+		}//点击事件结束
+	}//move结束
+</script>
+</html>
