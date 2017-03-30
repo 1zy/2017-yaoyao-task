@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+#mark{
+	width:100%;
+	height:100%;
+	background:rgba(0,0,0,.5);
+	position:absolute;
+	left:0;
+	top:0;
+	z-index:20;
+	display:none;
+}
+.wrap{
+	width:400px;
+	height:230px;
+	background:#fff;
+	border:1px solid #333;
+	position:absolute;
+	left:50%;
+	margin-left:-200px;
+	top:50%;
+	margin-top:-125px;
+	
+}
+.top{
+	width:390px;
+	height:45px;
+	border-bottom:1px solid #333;
+	background:#666;
+	line-height:45px;
+	padding-left:10px;
+	color:#fff;
+}
+p{
+	padding-left:10px;
+	line-height:50px;
+	color:#666;
+	}
+#mark button{
+	width:80px;
+	height:40px;
+	padding:0 10px;
+	margin-top:80px;
+	background:666;
+	border:1px solid #333;
+	background:#666;
+	color:#fff;
+}
+#btn1{
+	margin-left:220px;
+	}
+.red{
+	background:red;
+}
+.green{
+	background:green;
+}
+</style>
+</head>
+
+<body>
+  <div id="mark"><!--遮罩层-->
+     <div class="wrap">
+         <div class="top">这是一个浮出层</div>
+         <p>确定要跳转到w3c吗？</p>
+         <button id="btn1">确定</button>
+         <button id="btn2">取消</button>
+     </div>
+  </div>
+  <button id="btn">转到w3c网站</button>
+  <script>
+     var btn=document.getElementById("btn");
+	 var btn1=document.getElementById("btn1");
+	 var btn2=document.getElementById("btn2");
+	 var mark=document.getElementById("mark");
+	 window.onload=function(){
+		mark.style.height=document.clientHeight+"px";
+	 }
+	 btn.onclick=function(){
+		  mark.style.display="block";
+		 }
+	 btn1.onclick=function(){
+		 btn1.className="green";
+		 window.location="http://www.w3school.com.cn/"
+		 mark.style.display="none";
+		 }
+	 btn2.onclick=function(){
+		 btn1.className="red";
+		 mark.style.display="none";
+		 }
+  </script>
+</body>
+</html>
