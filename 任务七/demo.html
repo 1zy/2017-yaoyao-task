@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+   *{
+	   margin:0;
+	   padding:0;
+   }
+   tr{
+	   background:#ccc;
+   }
+  
+   td{
+	    padding:10px 20px;
+	    text-align:center;
+   }
+   #one{
+	   background:#333;
+	   color:#fff;
+	   font-weight:bold;
+	   
+   }
+   #one span{
+	   margin:5px;
+	   cursor:pointer;
+	   position:relative;
+	   width:1px;
+	   height:1px;
+	  
+   }
+   #one td span:first-child{
+	   position:absolute;
+	   top:0px;
+	   border:8px solid #CCC;
+	   border-left:8px solid transparent;
+	   border-right:8px solid transparent;
+	   border-top:8px solid transparent;
+	   }
+  #one td span:last-child{
+	   border:8px solid #CCC;
+	   border-left:8px solid transparent;
+	   border-right:8px solid transparent;
+	   border-bottom:8px solid transparent;
+	   bottom:-20px
+	   }
+</style>
+</head>
+
+<body>
+
+  <table id="scoreTable">
+     <tr id="one"><td>姓名</td><td>语文<span id="chin-up"></span><span id="chin-down"></span></td><td>数学<span id="mat-up"></span><span id="mat-down"></span></td>
+     <td>英语<span id="eng-up"></span><span id="eng-down"></span></td><td>总分<span id="to-up"></span><span id="to-down"></span></td></tr>
+     <tr><td>小明</td><td>80</td><td>90</td><td>70</td><td>240</td></tr>
+     <tr><td>小红</td><td>85</td><td>70</td><td>80</td><td>235</td></tr>
+     <tr><td>小亮</td><td>84</td><td>88</td><td>88</td><td>252</td></tr>
+  </table>
+  <script src="js.js" type="text/javascript"></script>
+  <script>
+  var chin_up=document.getElementById("chin-up");//语文从小到大排序
+  var chin_down=document.getElementById("chin-down");//语文从大到小
+  
+  var mat_up=document.getElementById("mat-up");//数学上
+  var mat_down=document.getElementById("mat-down");//数学下
+  
+  var eng_up=document.getElementById("eng-up");
+  var eng_down=document.getElementById("eng-down");
+  
+  var to_up=document.getElementById("to-up");
+  var to_down=document.getElementById("to-down");
+  
+  var table=document.getElementById("scoreTable");
+  var rowss=table.rows;
+  console.log(rowss[1].cells[0])
+  //语文
+  chin_up.onclick=function(){
+	  var d=scorefun({
+		  xm:80,
+		  xh:85,
+		  xl:84,
+		  rowss:rowss,
+		  rc:1,
+		  scoreUp:true
+		  })
+  }
+   chin_down.onclick=function(){
+	     var d=scorefun({
+		  xm:80,
+		  xh:85,
+		  xl:84,
+		  rowss:rowss,
+		  rc:1,
+		  scoreDown:true
+		  })
+	   }
+	
+  //数学
+    mat_up.onclick=function(){
+	  var d=scorefun({
+		  xm:90,
+		  xh:70,
+		  xl:88,
+		  rowss:rowss,
+		  rc:2,
+		  scoreUp:true
+		  })
+  }
+   mat_down.onclick=function(){
+	     var d=scorefun({
+		  xm:90,
+		  xh:70,
+		  xl:88,
+		  rowss:rowss,
+		  rc:2,
+		  scoreDown:true
+		  })
+	   }
+	//英语
+	eng_up.onclick=function(){
+	  var d=scorefun({
+		  xm:70,
+		  xh:80,
+		  xl:88,
+		  rowss:rowss,
+		  rc:3,
+		  scoreUp:true
+		  })
+  }
+   eng_down.onclick=function(){
+	     var d=scorefun({
+		  xm:70,
+		  xh:80,
+		  xl:88,
+		  rowss:rowss,
+		  rc:3,
+		  scoreDown:true
+		  })
+	   }
+	//总分
+	to_up.onclick=function(){
+	  var d=scorefun({
+		  xm:240,
+		  xh:236,
+		  xl:252,
+		  rowss:rowss,
+		  rc:4,
+		  scoreUp:true
+		  })
+  }
+   to_down.onclick=function(){
+	     var d=scorefun({
+		  xm:240,
+		  xh:236,
+		  xl:252,
+		  rowss:rowss,
+		  rc:4,
+		  scoreDown:true
+		  })
+	   }
+	  
+  </script>
+
+</body>
+</html>
